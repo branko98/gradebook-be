@@ -38,7 +38,16 @@ class GradebooksController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $gradebook = new Gradebook();
+
+        // $this->validate(request(), Gradebook::STORE_RULES);
+
+        $gradebook->class = $request->input('class');
+        $gradebook->professor_id = $request->input('professor_id');
+
+        $gradebook->save();
+
+        return $gradebook;
     }
 
     /**

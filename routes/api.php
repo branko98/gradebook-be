@@ -17,8 +17,10 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
 
 Route::middleware('api')->get('/gradebooks', 'GradebooksController@index');
-Route::middleware('api')->get('/gradebooks/{id}', 'GradebooksController@show');
+Route::middleware('api')->post('/gradebooks', 'GradebooksController@store');
 Route::middleware('api')->get('/professors', 'ProfessorsController@index');
+Route::middleware('api')->get('/gradebooks/{id}', 'GradebooksController@show');
+Route::middleware('api')->get('/professors/{id}', 'ProfessorsController@show');
 
 
 

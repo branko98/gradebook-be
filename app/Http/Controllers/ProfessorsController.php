@@ -48,7 +48,9 @@ class ProfessorsController extends Controller
      */
     public function show($id)
     {
-        //
+        $professor = Professor::with('gradebooks.students')->find($id);
+
+        return $professor;
     }
 
     /**
