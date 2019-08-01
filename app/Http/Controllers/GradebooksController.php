@@ -40,7 +40,7 @@ class GradebooksController extends Controller
     {
         $gradebook = new Gradebook();
 
-        // $this->validate(request(), Gradebook::STORE_RULES);
+        $this->validate(request(), Gradebook::STORE_RULES);
 
         $gradebook->class = $request->input('class');
         $gradebook->professor_id = $request->input('professor_id');

@@ -37,7 +37,15 @@ class ProfessorsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $professor = new Professor();
+
+        $professor->firstName = $request->input('firstName');
+        $professor->lastName = $request->input('lastName');
+        $professor->imgUrl = $request->input('imgUrl');
+
+        $professor->save();
+
+        return $professor;
     }
 
     /**
