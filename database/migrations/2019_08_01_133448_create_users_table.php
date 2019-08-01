@@ -19,6 +19,8 @@ class CreateUsersTable extends Migration
             $table->unsignedBigInteger('professor_id');
             $table->foreign('professor_id')
                 ->references('id')->on('professors')
+                ->default('0')
+                ->nullable()
                 ->onDelete('cascade');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
