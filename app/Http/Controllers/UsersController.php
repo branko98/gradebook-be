@@ -3,10 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Student;
+use Illuminate\Support\Facades\Auth;
+use App\Professor;
 
-class StudentsController extends Controller
+class UsersController extends Controller
 {
+
+    public function auth()
+    {
+        $professor_id = Auth::user()->professor_id;
+        $user = Professor::with('gradebooks.students')->find($professor_id);
+
+        return $user;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -35,15 +44,7 @@ class StudentsController extends Controller
      */
     public function store(Request $request)
     {
-        $student = new Student();
-
-        $student->firstName = $request->input('firstName');
-        $student->lastName = $request->input('lastName');
-        $student->gradebook_id = $request->input('gradebook_id');
-
-        $student->save();
-
-        return $student;
+        //
     }
 
     /**
@@ -88,8 +89,6 @@ class StudentsController extends Controller
      */
     public function destroy($id)
     {
-        $student = Student::find($id);
-
-        $student->delete();
+        //
     }
 }

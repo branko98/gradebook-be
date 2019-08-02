@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Student;
+use Illuminate\Support\Facades\Auth;
+use App\Comment;
 
-class StudentsController extends Controller
+
+class CommentsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -35,15 +37,17 @@ class StudentsController extends Controller
      */
     public function store(Request $request)
     {
-        $student = new Student();
+        $professor_id = Auth::user()->professor_id;
+        
+        $comment = new Comment;
 
-        $student->firstName = $request->input('firstName');
-        $student->lastName = $request->input('lastName');
-        $student->gradebook_id = $request->input('gradebook_id');
+        $comment->content = $request->input('content');
+        $comment->professor_id = $professor_id;
+        $comment->gradebook_id = $request->input('gradebook_id');
+        \Log::info($comment);
+        $comment->save();
 
-        $student->save();
-
-        return $student;
+        return $comment;
     }
 
     /**
@@ -88,8 +92,11 @@ class StudentsController extends Controller
      */
     public function destroy($id)
     {
-        $student = Student::find($id);
+        $comment = Comment::find($id);
 
-        $student->delete();
+
+        $comment->delete();
+
+        // return new JsonResponse(true);
     }
 }

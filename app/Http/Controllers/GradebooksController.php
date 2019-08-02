@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use App\Gradebook;
+use App\Comment;
 
 class GradebooksController extends Controller
 {
@@ -58,7 +59,7 @@ class GradebooksController extends Controller
      */
     public function show($id)
     {
-        $gradebooks = Gradebook::with('professor', 'students')->find($id);
+        $gradebooks = Gradebook::with('professor', 'students', 'comments.professor')->find($id);
 
         return $gradebooks;
     }
@@ -83,7 +84,14 @@ class GradebooksController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $gradebook = Gradebook::find($id);
+    
+        $gradebook->class = $request->input('class');
+        $gradebook->professor_id = $request->input('professor_id');
+
+        $gradebook->save();
+
+        return $gradebook;
     }
 
     /**
@@ -94,6 +102,8 @@ class GradebooksController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $gradebook = Gradebook::find($id);
+
+        $gradebook->delete();
     }
 }

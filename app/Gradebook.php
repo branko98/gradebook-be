@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Student;
 use App\Professor;
+use App\Comment;
 
 class Gradebook extends Model
 {
@@ -22,5 +23,9 @@ class Gradebook extends Model
 
     public function professor(){
         return $this->belongsTo(Professor::class, 'professor_id');
+    }
+
+    public function comments(){
+        return $this->hasMany(Comment::class);
     }
 }

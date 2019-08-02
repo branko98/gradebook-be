@@ -39,6 +39,8 @@ class ProfessorsController extends Controller
     {
         $professor = new Professor();
 
+        $this->validate(request(), Professor::STORE_RULES);
+
         $professor->firstName = $request->input('firstName');
         $professor->lastName = $request->input('lastName');
         $professor->imgUrl = $request->input('imgUrl');
